@@ -19,6 +19,7 @@ services:
         limits:
           cpus: "0.45"
           memory: "1GB"
+    network_mode: host
 
   api2:
     build:
@@ -38,6 +39,7 @@ services:
         limits:
           cpus: "0.45"
           memory: "1GB"
+    network_mode: host
 
   nginx:
     image: nginx:latest
@@ -53,6 +55,7 @@ services:
         limits:
           cpus: "0.1"
           memory: "0.2GB"
+    network_mode: host
 
   db:
     image: postgres:16.0-alpine3.18
@@ -68,3 +71,4 @@ services:
         limits:
           cpus: "0.5"
           memory: "1GB"
+    network_mode: host
