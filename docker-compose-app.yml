@@ -1,0 +1,19 @@
+version: "3.5"
+
+services:
+  api1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    hostname: api1
+    env_file:
+      - ./.env.development
+    environment:
+      SPRING_PORT: 8080
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "2GB"
