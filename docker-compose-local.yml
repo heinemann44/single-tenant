@@ -8,17 +8,17 @@ services:
     hostname: api1
     depends_on:
       - db
-    env_file:
-      - ./.env.development
     environment:
       SPRING_PORT: 8080
-    ports:
-      - "8080:8080"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/local_database
+      SPRING_DATASOURCE_USERNAME: local_user
+      SPRING_DATASOURCE_PASSWORD: local_password
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
     deploy:
       resources:
         limits:
-          cpus: "0.45"
-          memory: "1GB"
+          cpus: "3"
+          memory: "3GB"
     network_mode: host
 
   api2:
@@ -28,17 +28,17 @@ services:
     hostname: api2
     depends_on:
       - db
-    env_file:
-      - ./.env.development
     environment:
       SPRING_PORT: 8081
-    ports:
-      - "8081:8081"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/local_database
+      SPRING_DATASOURCE_USERNAME: local_user
+      SPRING_DATASOURCE_PASSWORD: local_password
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
     deploy:
       resources:
         limits:
-          cpus: "0.45"
-          memory: "1GB"
+          cpus: "3"
+          memory: "3GB"
     network_mode: host
 
   nginx:
@@ -48,13 +48,11 @@ services:
     depends_on:
       - api1
       - api2
-    ports:
-      - "9999:9999"
     deploy:
       resources:
         limits:
-          cpus: "0.1"
-          memory: "0.2GB"
+          cpus: "1"
+          memory: "2GB"
     network_mode: host
 
   db:
@@ -62,13 +60,11 @@ services:
     hostname: database
     env_file:
       - ./.env.development
-    ports:
-      - "5432:5432"
     volumes:
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
     deploy:
       resources:
         limits:
-          cpus: "0.5"
-          memory: "1GB"
+          cpus: "0.7"
+          memory: "0.7GB"
     network_mode: host
